@@ -7,23 +7,26 @@ import { FlatList } from "react-native-web";
 // Prop "navigation" is added through app.js when using navigation component.
 export default function HomeScreen({ navigation }) {
   //State holding the movie data
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
   
   useEffect(() => {
+    async function fetchMovies() {
+      const res = await fetch('https://api.themoviedb.org/3/movie/550?api_key=40877d5afcb8d5e8fd6232a1d1569c32')
+      console.log(res) 
+      
+      const data = await res.json()
+      console.log(data)
+      setData(data.genres)
+    }
+
     fetchMovies();
     
   }, []);
     
-  function fetchMovies() {
-    fetch(
-      'https://api.themoviedb.org/3/movie/550?api_key=40877d5afcb8d5e8fd6232a1d1569c32'
-    )
-      .then((response) => response.json())
-      .then((data) => setData(data.results));
-  }
+
 
   const renderItem = ({ item }) => (
-    <Item navigation={navigation} movieID={item.id} title={item.title} />
+    <Item navigation={navigation} movieID={item.id} name={item.name} />
   );
 
   return (
@@ -42,7 +45,7 @@ export default function HomeScreen({ navigation }) {
     );
 }
 
-const Item = ({ navigation, title, movieId }) => (
+const Item = ({ navigation, name, movieId }) => (
   <View style={styles.item}>
     <Text
       onPress={() =>
@@ -52,7 +55,7 @@ const Item = ({ navigation, title, movieId }) => (
       }
       style={styles.title}
     >
-      {title}
+      {name}
     </Text>
   </View>
 );
