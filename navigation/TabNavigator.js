@@ -6,7 +6,16 @@ const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator () {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+    tabBarOptions={{
+      activeTintColor: 'black',
+      inactiveTintColor: '#d9d9d9',
+      style: {
+        borderTopColor: '#66666666',
+        backgroundColor: 'transparent',
+        elevation: 0,
+      }
+    }} >
       <Tab.Screen name='Home' component={MainAppNavigator} />
       <Tab.Screen name="Search" component={SearchNavigator} />
     </Tab.Navigator>
