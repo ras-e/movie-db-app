@@ -8,25 +8,25 @@ import { FlatList } from "react-native-web";
 export default function HomeScreen({ navigation }) {
   //State holding the movie data
   const [data, setData] = useState(null);
-  
+
+
+  //Async to avoid callback hell 
   useEffect(() => {
     async function fetchMovies() {
-      const res = await fetch('https://api.themoviedb.org/3/movie/550?api_key=40877d5afcb8d5e8fd6232a1d1569c32')
+      const res = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=40877d5afcb8d5e8fd6232a1d1569c32&language=en-US&page=1')
       console.log(res) 
       
       const data = await res.json()
       console.log(data)
-      setData(data.genres)
+      setData(data.results)
     }
 
     fetchMovies();
     
   }, []);
-    
-
 
   const renderItem = ({ item }) => (
-    <Item navigation={navigation} movieID={item.id} name={item.name} />
+    <Item navigation={navigation} movieID={item.id} title={item.title} />
   );
 
   return (
@@ -40,12 +40,13 @@ export default function HomeScreen({ navigation }) {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        horizontal
       />
     </SafeAreaView>
     );
 }
 
-const Item = ({ navigation, name, movieId }) => (
+const Item = ({ navigation, title, movieId }) => (
   <View style={styles.item}>
     <Text
       onPress={() =>
@@ -55,7 +56,7 @@ const Item = ({ navigation, name, movieId }) => (
       }
       style={styles.title}
     >
-      {name}
+      {title}
     </Text>
   </View>
 );
