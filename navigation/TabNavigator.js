@@ -7,13 +7,14 @@ const Tab = createBottomTabNavigator();
 export default function BottomTabNavigator () {
   return (
     <Tab.Navigator
-    tabBarOptions={{
+    screenOptions={{
       activeTintColor: 'black',
       inactiveTintColor: '#d9d9d9',
-      style: {
+      tabBarStyle: {
         borderTopColor: '#66666666',
         backgroundColor: 'transparent',
         elevation: 0,
+        display: "flex"
       }
     }} >
       <Tab.Screen name='Home' component={MainAppNavigator} />
