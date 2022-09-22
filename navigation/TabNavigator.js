@@ -10,6 +10,7 @@ export default function BottomTabNavigator () {
     screenOptions={{
       activeTintColor: 'black',
       inactiveTintColor: '#d9d9d9',
+      headerShown: false,
       tabBarStyle: {
         borderTopColor: '#66666666',
         backgroundColor: 'transparent',
@@ -18,6 +19,7 @@ export default function BottomTabNavigator () {
       }
     }} >
       <Tab.Screen name='Home' component={MainAppNavigator} />
+
       <Tab.Screen name="Search" component={SearchNavigator} />
     </Tab.Navigator>
   );

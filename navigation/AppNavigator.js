@@ -8,12 +8,14 @@ const Stack = createNativeStackNavigator();
 
 const MainAppNavigator = () => {
   return (
-    <Stack.Navigator> 
+    <Stack.Navigator 
+> 
         <Stack.Screen name="Homepage" component={HomeScreen}
          />
         <Stack.Screen name="Search" component={SearchScreen}
         />
         <Stack.Screen name="MovDetails" component={MovDetails}
+        options={{ title: 'Details of the movie' }}
         />     
     </Stack.Navigator>
   );
@@ -21,8 +23,10 @@ const MainAppNavigator = () => {
 
 const SearchNavigator = () => {
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Navigator screenOptions={{
+            headerShown: true}}
+            >
+            <Stack.Screen name="Search movie" component={SearchScreen} />
         </Stack.Navigator>
     );
 }
