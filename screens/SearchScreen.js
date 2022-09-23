@@ -8,13 +8,13 @@ import { TouchableOpacity } from 'react-native';
 export default function SearchScreen({ navigation }) {  
   
   const [movies, setData] = useState(null);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState("");
 
   //Async to avoid callback hell 
   
   useEffect(() => {
     async function fetchMovies() {
-      const mov = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=40877d5afcb8d5e8fd6232a1d1569c32')
+      const mov = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=40877d5afcb8d5e8fd6232a1d1569c32`)
 
       console.log(mov) 
       
@@ -30,17 +30,22 @@ export default function SearchScreen({ navigation }) {
   
   useEffect(() => {
      async function searchMovies() {
-      const filter = await fetch('https://api.themoviedb.org/3/search/movie?query=${text}&api_key=40877d5afcb8d5e8fd6232a1d1569c32')
-     
+
+       if(search === '') {
+          return 
+      }
+  
+      const filter = await fetch(`https://api.themoviedb.org/3/search/movie?query=${search}&api_key=40877d5afcb8d5e8fd6232a1d1569c32`)
       console.log(filter)
 
-      const search = await filter.json()
+      const movSearch = await filter.json()
+      console.log(search)
   
-      setData(search.results)
+      setData(movSearch.results)
     }
 
     searchMovies();
-  }, []); 
+  }, [search]); 
   
 
   const renderItem = ({ item }) => (
@@ -51,15 +56,19 @@ export default function SearchScreen({ navigation }) {
   return (
     <SafeAreaView>
       <View style={{flex : 1, justifyContent : 'center', alignItems : 'center'}}>
-        <TextInput
+        <TextInput value={search}
           placeholder="Search for a movie"
           placeholderTextColor="black"
-          onChangeText={text => searchMovies(text)}
+          onChangeText={text => setSearch(text)}
           style={{
             height: 50,
             paddingLeft: 10,
             fontSize: 15,
             backgroundColor: "Grey",
+            borderColor: "black", 
+            margin:10, 
+            borderRadius:10,
+            borderWidth: 1
           }}
         />
       </View>
@@ -84,7 +93,7 @@ export default function SearchScreen({ navigation }) {
     }
     >
       <View style={{flex:1}}>
-        <Image style={styles.image} source={{uri: "https://image.tmdb.org/t/p/w500" + image}} />
+        <Image style={styles.image} source={{uri: "https://image.tmdb.org/t/p/w500" + image }} />
       <View style={{flex:1, flexGrow:1}}>
         <Text numberOfLines={1}
           style={styles.title}

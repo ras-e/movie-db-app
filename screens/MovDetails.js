@@ -54,9 +54,8 @@ export default function MovDetails({ route}) {
           </View>
 
           <View style={{ paddingHorizontal:10, marginBottom: 20, }}>
-            <Text 
-            style= {{fontSize: 18, lineHeight: 25,}}
-            > {data.overview} 
+            <Text style= {{fontSize: 18, lineHeight: 25,}}> 
+            {data.overview} 
             </Text>
           </View>
         </View>
@@ -88,7 +87,8 @@ const styles = StyleSheet.create({
   image: {
     height: 300,
     width: 150, 
-    marginBottom: 10
+    marginBottom: 10,
+    marginTop: 10,
     
   }
 }); 
