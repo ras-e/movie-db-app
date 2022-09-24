@@ -2,6 +2,7 @@ import { StyleSheet, View, SafeAreaView, TextInput, FlatList, Image, Text } from
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from 'react-native';
+import { DarkTheme } from '@react-navigation/native';
 
 
 
@@ -14,18 +15,21 @@ export default function SearchScreen({ navigation }) {
   
   useEffect(() => {
     async function fetchMovies() {
-      const mov = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=40877d5afcb8d5e8fd6232a1d1569c32`)
+      
+      if(search !== '') {
+        return 
+    }
+      
 
-      console.log(mov) 
+      const mov = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=40877d5afcb8d5e8fd6232a1d1569c32`)
       
       const movies = await mov.json()
-      console.log(movies)
   
       setData(movies.results)
     }
 
     fetchMovies();
-  }, []);
+  }, [search]);
 
   
   useEffect(() => {
@@ -36,11 +40,9 @@ export default function SearchScreen({ navigation }) {
       }
   
       const filter = await fetch(`https://api.themoviedb.org/3/search/movie?query=${search}&api_key=40877d5afcb8d5e8fd6232a1d1569c32`)
-      console.log(filter)
 
       const movSearch = await filter.json()
-      console.log(search)
-  
+      
       setData(movSearch.results)
     }
 
@@ -54,26 +56,28 @@ export default function SearchScreen({ navigation }) {
 
 
   return (
-    <SafeAreaView>
-      <View style={{flex : 1, justifyContent : 'center', alignItems : 'center'}}>
+    <SafeAreaView style={{backgroundColor: "#1a1a1a"}}>
+      <View style={{marginTop: 20, marginBottom: 25, justifyContent : 'center', alignItems : 'center',}}>
         <TextInput value={search}
           placeholder="Search for a movie"
-          placeholderTextColor="black"
+          placeholderTextColor=""
           onChangeText={text => setSearch(text)}
+
           style={{
             height: 50,
+            width: 200,
             paddingLeft: 10,
             fontSize: 15,
-            backgroundColor: "Grey",
-            borderColor: "black", 
-            margin:10, 
-            borderRadius:10,
-            borderWidth: 1
+            backgroundColor: "white",
+            borderColor: "white",  
+            borderRadius:20,
+            borderWidth: 1,
+            
           }}
         />
       </View>
 
-      <FlatList
+      <FlatList 
       data={movies}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
@@ -85,53 +89,70 @@ export default function SearchScreen({ navigation }) {
 
   const Item = ({ navigation, title, movieId, image }) => (
     //Check properties
-    <TouchableOpacity style={styles.item} 
-    onPress={() =>
-      navigation.navigate("MovDetails", {
-        id: movieId,
-      })
-    }
-    >
-      <View style={{flex:1}}>
-        <Image style={styles.image} source={{uri: "https://image.tmdb.org/t/p/w500" + image }} />
-      <View style={{flex:1, flexGrow:1}}>
-        <Text numberOfLines={1}
-          style={styles.title}
-        >
-         {title}
-       </Text>
-      </View>
-      </View>
+    <SafeAreaView >
+      <TouchableOpacity style={styles.item} 
+        onPress={() =>
+          navigation.navigate("MovDetails", {
+            id: movieId,
+        })
+      }
+      >
+        <View style={{flex:1, backgroundColor: "#484848", marginBottom: 20}}>
+        <Image 
+          style={styles.image} 
+          source=
+            {{uri: "https://image.tmdb.org/t/p/w500" + image }} />
       
-    </TouchableOpacity>
+          <View style={{flex:1, flexGrow:1, marginBottom: 20,}}>
+            <Text numberOfLines={1}
+              style={styles.title}
+            >
+              {title}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </SafeAreaView>  
   );  
 
 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    margin: 15,
+    //justifyContent: 'flex-start',
+    alignItems: "center",
+    
+    width: "90%",
+    //flex: 1,
+    //backgroundColor: "#fff",
     justifyContent: "center",
+    backgroundColor: "#1a1a1a",
     
   },
   item: {
-    backgroundColor: "#EEE",
-    //marginVertical: 8,
-    marginHorizontal: 16,
-    //height: 350,
-    //width: 200,
+    backgroundColor: "#1a1a1a",
+    //marginHorizontal: 16,
     flex: 1,
-    
-
+    justifyContent: 'center',
+    alignItems: "center",
   },
   title: {
+    //textAlign: 'center',
+    //fontSize: 16,
+    //flex: 1,
+    //flexWrap: 'wrap',
+    //flexShrink: 1,
+    //maxWidth: 150,
+    //color: "white",
+    //marginTop: 10,
+    color: "white",
     textAlign: 'center',
     fontSize: 16,
     flex: 1,
     flexWrap: 'wrap',
     flexShrink: 1,
-    maxWidth: 150,
+    marginTop: 5,
    
   },
   image: {
@@ -141,7 +162,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     alignItems: 'center',
     justifyContent: "center",
-
-    
+ 
   }
 }); 

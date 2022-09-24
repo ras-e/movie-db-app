@@ -13,13 +13,12 @@ export default function BottomTabNavigator () {
       headerShown: false,
       tabBarStyle: {
         borderTopColor: '#66666666',
-        backgroundColor: 'transparent',
+        backgroundColor: '#121212',
         elevation: 0,
         display: "flex"
       }
     }} >
       <Tab.Screen name='Home' component={MainAppNavigator} />
-
       <Tab.Screen name="Search" component={SearchNavigator} />
     </Tab.Navigator>
   );

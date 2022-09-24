@@ -8,8 +8,10 @@ const Stack = createNativeStackNavigator();
 
 const MainAppNavigator = () => {
   return (
-    <Stack.Navigator 
-> 
+    <Stack.Navigator  
+    screenOptions={{ 
+      headerTintColor: "white",
+      headerStyle: {backgroundColor: '#121212'}}}> 
         <Stack.Screen name="Homepage" component={HomeScreen}
          />
         <Stack.Screen name="Search" component={SearchScreen}
@@ -24,6 +26,8 @@ const MainAppNavigator = () => {
 const SearchNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{
+            headerStyle: {backgroundColor: '#121212'},
+            headerTintColor: "white",
             headerShown: true}}
             >
             <Stack.Screen name="Search movie" component={SearchScreen} />
