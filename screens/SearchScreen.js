@@ -2,7 +2,6 @@ import { StyleSheet, View, SafeAreaView, TextInput, FlatList, Image, Text } from
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from 'react-native';
-import { DarkTheme } from '@react-navigation/native';
 
 
 
@@ -19,8 +18,6 @@ export default function SearchScreen({ navigation }) {
       if(search !== '') {
         return 
     }
-      
-
       const mov = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=40877d5afcb8d5e8fd6232a1d1569c32`)
       
       const movies = await mov.json()
@@ -56,8 +53,8 @@ export default function SearchScreen({ navigation }) {
 
 
   return (
-    <SafeAreaView style={{backgroundColor: "#1a1a1a"}}>
-      <View style={{marginTop: 20, marginBottom: 25, justifyContent : 'center', alignItems : 'center',}}>
+    <SafeAreaView style={{backgroundColor: "#121212"}}>
+      <View style={{marginTop: 20, marginBottom: 25, justifyContent : 'center', alignItems : 'center', flexDirection: "row"}}>
         <TextInput value={search}
           placeholder="Search for a movie"
           placeholderTextColor=""
@@ -65,7 +62,7 @@ export default function SearchScreen({ navigation }) {
 
           style={{
             height: 50,
-            width: 200,
+            width: 250,
             paddingLeft: 10,
             fontSize: 15,
             backgroundColor: "white",
@@ -81,6 +78,8 @@ export default function SearchScreen({ navigation }) {
       data={movies}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
+      //Dismiss keyboard when dragging downwards
+      keyboardDismissMode='on-drag'
 
       />
     </SafeAreaView>  
@@ -97,17 +96,15 @@ export default function SearchScreen({ navigation }) {
         })
       }
       >
-        <View style={{flex:1, backgroundColor: "#484848", marginBottom: 20}}>
+        <View style={{flex:1, backgroundColor: "#1a1a1a", marginBottom: 20}}>
         <Image 
-          style={styles.image} 
+          style={styles.image}
+          loadingIndicatorSource 
           source=
             {{uri: "https://image.tmdb.org/t/p/w500" + image }} />
       
           <View style={{flex:1, flexGrow:1, marginBottom: 20,}}>
-            <Text numberOfLines={1}
-              style={styles.title}
-            >
-              {title}
+            <Text numberOfLines={1} style={styles.title} >{title}
             </Text>
           </View>
         </View>
@@ -120,38 +117,25 @@ export default function SearchScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     margin: 15,
-    //justifyContent: 'flex-start',
     alignItems: "center",
-    
     width: "90%",
-    //flex: 1,
-    //backgroundColor: "#fff",
     justifyContent: "center",
-    backgroundColor: "#1a1a1a",
     
   },
   item: {
-    backgroundColor: "#1a1a1a",
-    //marginHorizontal: 16,
+    backgroundColor: "#121212",
     flex: 1,
     justifyContent: 'center',
     alignItems: "center",
   },
   title: {
-    //textAlign: 'center',
-    //fontSize: 16,
-    //flex: 1,
-    //flexWrap: 'wrap',
-    //flexShrink: 1,
-    //maxWidth: 150,
-    //color: "white",
-    //marginTop: 10,
     color: "white",
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 24,
     flex: 1,
     flexWrap: 'wrap',
     flexShrink: 1,
+    maxWidth: 150,
     marginTop: 5,
    
   },
@@ -162,6 +146,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     alignItems: 'center',
     justifyContent: "center",
+    marginBottom: 10,
  
   }
 }); 

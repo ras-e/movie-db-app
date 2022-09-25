@@ -1,6 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MainAppNavigator, SearchNavigator } from "./AppNavigator";
+import * as Icon from 'react-native-feather'
+
 
 const Tab = createBottomTabNavigator();
 
@@ -18,8 +20,22 @@ export default function BottomTabNavigator () {
         display: "flex"
       }
     }} >
-      <Tab.Screen name='Home' component={MainAppNavigator} />
-      <Tab.Screen name="Search" component={SearchNavigator} />
+      <Tab.Screen name='Home' component={MainAppNavigator}
+       options={{
+        tabBarIcon: ({color, size}) => (
+        <Icon.Home name="Home" color={color} size={size} />
+        ),
+       }}
+         
+      />
+
+      <Tab.Screen name="Search" component={SearchNavigator} 
+       options={{
+        tabBarIcon: ({color, size}) => (
+          <Icon.Search name="Home" color={color} size={size} /> 
+        ),
+       }}
+       />
     </Tab.Navigator>
   );
 };
