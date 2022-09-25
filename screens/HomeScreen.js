@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, FlatList, Image, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from 'react-native';
-import * as Icon from 'react-native-feather'
+import { Star } from 'react-native-feather'
 
 // Default component that will get called by app.js
 // Prop "navigation" is added through app.js when using navigation component.
@@ -150,7 +150,7 @@ const Item = ({ navigation, title, movieId, image, vote_avg}) => (
       
 
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 10}}>
-          <Icon.Star stroke="#f5c518" fill="#f5c518" width={16} height={16} />
+          <Star stroke="#f5c518" fill="#f5c518" width={16} height={16} />
         <Text style={{color: "white"}}> {vote_avg} </Text>
         </View>
       </View>

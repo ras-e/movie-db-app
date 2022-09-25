@@ -3,15 +3,13 @@ import * as React from 'react';
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from 'react-native';
 
-
-
 export default function SearchScreen({ navigation }) {  
   
   const [movies, setData] = useState(null);
   const [search, setSearch] = useState("");
 
   //Async to avoid callback hell 
-  
+
   useEffect(() => {
     async function fetchMovies() {
       
@@ -24,7 +22,6 @@ export default function SearchScreen({ navigation }) {
   
       setData(movies.results)
     }
-
     fetchMovies();
   }, [search]);
 
@@ -51,41 +48,29 @@ export default function SearchScreen({ navigation }) {
     <Item navigation={navigation} movieId={item.id} title={item.title} image={item.poster_path} />
   );
 
-
   return (
     <SafeAreaView style={{backgroundColor: "#121212"}}>
-      <View style={{marginTop: 20, marginBottom: 25, justifyContent : 'center', alignItems : 'center', flexDirection: "row"}}>
+      <View style={styles.searchBar}>
         <TextInput value={search}
           placeholder="Search for a movie"
           placeholderTextColor=""
           onChangeText={text => setSearch(text)}
-
-          style={{
-            height: 50,
-            width: 250,
-            paddingLeft: 10,
-            fontSize: 15,
-            backgroundColor: "white",
-            borderColor: "white",  
-            borderRadius:20,
-            borderWidth: 1,
-            
-          }}
+          style={styles.textSearchBar }
         />
       </View>
 
       <FlatList 
-      data={movies}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      //Dismiss keyboard when dragging downwards
-      keyboardDismissMode='on-drag'
-
+        data={movies}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        //Dismiss keyboard when dragging downwards
+        keyboardDismissMode='on-drag'
       />
     </SafeAreaView>  
-  );
+    );
   }
 
+  //Passes properties to the object
   const Item = ({ navigation, title, movieId, image }) => (
     //Check properties
     <SafeAreaView >
@@ -120,14 +105,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "90%",
     justifyContent: "center",
-    
   },
+
   item: {
     backgroundColor: "#121212",
     flex: 1,
     justifyContent: 'center',
     alignItems: "center",
   },
+
   title: {
     color: "white",
     textAlign: 'center',
@@ -137,8 +123,8 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     maxWidth: 150,
     marginTop: 5,
-   
   },
+
   image: {
     flex: 5,
     height: 250,
@@ -147,6 +133,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: "center",
     marginBottom: 10,
- 
+  },
+  searchBar: {
+    marginTop: 20, 
+    marginBottom: 25, 
+    justifyContent: 'center', 
+    alignItems : 'center', 
+    flexDirection: "row"
+  },
+
+  textSearchBar: {
+    height: 50,
+    width: 250,
+    paddingLeft: 10,
+    fontSize: 15,
+    backgroundColor: "white",
+    borderColor: "white",  
+    borderRadius:20,
+    borderWidth: 1,
   }
-}); 
+  }
+); 

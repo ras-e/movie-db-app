@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator, SafeAreaView } from 'react-native'
 import { useEffect, useState } from "react";
-import * as Icon from 'react-native-feather';
+import { Star } from 'react-native-feather';
 
 
 export default function MovDetails({ route}) {
@@ -23,19 +23,18 @@ export default function MovDetails({ route}) {
     fetchDetails();
     
   }, []);
-
+  //Returns loading if there's no data returned
   if (data === null) {
 
   return(  
    <ActivityIndicator style={styles.loading}
    animating="true"
    color="green"
-   size="large"
-   >
-
+   size="large" >
    </ActivityIndicator>
-  )
+    )
   }
+  //If data is present, all data is returned as view
   else {
     
     return (
@@ -45,7 +44,6 @@ export default function MovDetails({ route}) {
             <Image style={styles.image} source={{uri:  "https://image.tmdb.org/t/p/w500" + data.poster_path}}></Image>
             <Image style={styles.image} source={{uri:  "https://image.tmdb.org/t/p/w500" + data.backdrop_path}}></Image>
           </View>
-      
           
           <View>
             <Text style={{fontSize: 36, fontWeight: "bold", color: "#FF5733", marginBottom: 15}}> 
@@ -53,15 +51,13 @@ export default function MovDetails({ route}) {
           </View>
         
           <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 5}}> 
-            <Icon.Star stroke="#f5c518" fill="#f5c518" width={16} height={16} />
+            <Star stroke="#f5c518" fill="#f5c518" width={16} height={16} />
             <Text style={{color:"white", fontWeight: "bold",}}> {data.vote_average}</Text>
           </View>
 
           <View style={{marginBottom: 20}} >
             <Text style={{color:"white", fontWeight: "bold"}}> Release date: {data.release_date} </Text>
           </View>
-
-   
 
           <View style={{ paddingHorizontal:10, marginBottom: 20, marginStart:15 }}>
             <Text style= {{fontSize: 12, lineHeight: 25, marginBottom: 10, color: "white" }}> 
@@ -75,7 +71,6 @@ export default function MovDetails({ route}) {
 }
 
 const styles = StyleSheet.create({
-  
   container: {
     flex: 1,
     backgroundColor: "#121212",
@@ -94,15 +89,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexShrink: 1,
     color: "white",
-  
   },
+
   image: {
     height: 300,
     width: 150, 
     marginBottom: 10,
     marginTop: 10,
-    
   },
+
   loading: {
     position: 'absolute',
     alignItems: 'center',
@@ -111,5 +106,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
+    
   }
-}); 
+  }
+); 
