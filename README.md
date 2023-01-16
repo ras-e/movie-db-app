@@ -1,5 +1,6 @@
 # ToWatch (Movie Database App)
 
+# ! BE AWARE THIS CODE IS DEPRECATED - Update dependencies for security measures. 
 # Running locally
 As other projects, there are following requirements
 
@@ -12,8 +13,3 @@ As other projects, there are following requirements
 - Clone the repository to your local machine
 - npm -i
 - expo start
-
-You can choose following methods to view the project:
-- 
-
-WILL BE UPDATED
