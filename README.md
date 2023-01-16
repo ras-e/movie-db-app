@@ -1,6 +1,6 @@
 # ToWatch (Movie Database App)
 
-# ! BE AWARE THIS CODE IS DEPRECATED - Update dependencies for security measures. 
+### ! BE AWARE THIS CODE IS DEPRECATED - Update dependencies for security measures. 
 # Running locally
 As other projects, there are following requirements
 
